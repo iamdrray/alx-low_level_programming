@@ -1,65 +1,56 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <time.h>
 
 /**
- * main - generates password
+ * main - a function that generates random valid password
+ * for the program 101-crackme.
  *
- * return: 0 (success) 
+ * Return: Always 0.
+ *
  */
 
-int main()
+int main(void)
 {
-  printf("Length: ");
-  
-  int length;
-  scanf("%d", &length);
-  
-  if (length < 6)
-  {
+	char password[88];
+	int index = 0, sum = 0, diff_half1, diff_half2;
 
-    printf("Password length must be at least 6 characters\n");
-    return 1;
-  }
-  
-  char *password = malloc(length + 1);
+	srand(time(0));
 
-  char *digits = "0123456789";
-  int digits_length = strlen(digits);
-  
-  char *lowers = "abcdefghijklmnopqrstuvwxyz";
-  int lowers_length = strlen(lowers);
-  
-  char *uppers = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  int uppers_length = strlen(uppers);
-  
-  char *symbols = "!@#$%_-^&*()";
-  int symbols_length = strlen(symbols);
-    
+	while (sum < 2772)
+	{
+		password[index] = 33 + rand() % 94;
+		sum += password[index++];
+	}
 
-  srand(time(0));
-  
-  for (int i = 0; i < length; i++)
-  {
-    int char_type = rand() % 4;
-    
-    if (char_type == 0)
-      password[i] = digits[rand() % digits_length];
-    else if (char_type == 1)
-      password[i] = lowers[rand() % lowers_length];
-    else if (char_type == 2)
-      password[i] = uppers[rand() % uppers_length];
-    else
-      password[i] = symbols[rand() % symbols_length];
-    
-  }
+	password[index] = '\0';
 
-  password[length] = '\0';
-  
-  printf("Password: %s\n", password);
-  
-  free(password);
+	if (sum != 2772)
+	{
+		diff_half1 = (sum - 2772) / 2;
+		diff_half2 = (sum - 2772) / 2;
+		if ((sum - 2772) % 2 != 0)
+			diff_half1++;
 
-  return (0);
+		for (index = 0; password[index]; index++)
+		{
+			if (password[index] >= (33 + diff_half1))
+			{
+				password[index] -= diff_half1;
+				break;
+			}
+		}
+		for (index = 0; password[index]; index++)
+		{
+			if (password[index] >= (33 + diff_half2))
+			{
+				password[index] -= diff_half2;
+				break;
+			}
+		}
+	}
+
+	printf("%s", password);
+
+	return (0);
 }
