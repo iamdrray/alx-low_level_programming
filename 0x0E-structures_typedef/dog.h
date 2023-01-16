@@ -1,7 +1,7 @@
 #ifndef DOG_H
 #define DOG_H
 
-/**
+/*
  * File: dog.h
  * Auth: Raymond Omoraka
  * Desc: Header file that defines a new type struct dog.
