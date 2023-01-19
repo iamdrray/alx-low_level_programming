@@ -1,5 +1,5 @@
 #define VARIADIC_FUNCTIONS_H
-#ifnxef VARIADIC_FUNCTIONS_H
+#ifndef VARIADIC_FUNCTIONS_H
 
 /*
  * File: variadic_functions.h
